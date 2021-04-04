@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Tic Tac Toe</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main>
+        <div id="scoreBoard">
+            <p class="player-score text-uppercase text-start" id="player1Wins">Player 1 Wins: 0</p>
+            <p class="player-score text-uppercase text-end" id="player2Wins">Player 2 Wins: 0</p>
+        </div>
+        <div id="gameContainer">
+            <div class="gameboard-tile" id="cell1"></div>
+            <div class="gameboard-tile" id="cell2"></div>
+            <div class="gameboard-tile" id="cell3"></div>
+            <div class="gameboard-tile" id="cell4"></div>
+            <div class="gameboard-tile" id="cell5"></div>
+            <div class="gameboard-tile" id="cell6"></div>
+            <div class="gameboard-tile" id="cell7"></div>
+            <div class="gameboard-tile" id="cell8"></div>
+            <div class="gameboard-tile" id="cell9"></div>
+        </div>
+        <button id="btnUpdatePlayers">Update Players Info</button>
+        <button id="btnReset">Reset</button>
+    </main>
+
+    <div id="formContainer">
+        <form id="myForm" class="d-flex flex-column">
+            <h1>Update Players Info</h1>
+
+            <label for="player1Name">Player 1 Name</label>
+            <input type="text" id="player1Name" value='Player 1' name="player1Name">
+
+            <label for="player1Symbol">Player 1 Symbol</label>
+            <input type="text" id="player1Symbol" value='X' name="player1Symbol">
+
+            <label for="player2Name">Player 2 Name</label>
+            <input type="text" id="player2Name" value='Player 2' name="player2Name">
+
+            <label for="player2Symbol">Player 2 Symbol</label>
+            <input type="text" id="player2Symbol" value='O' name="player2Symbol">
+
+            <button type="submit" id="btnSubmitUpdates">Submit Updates</button>
+        </form>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

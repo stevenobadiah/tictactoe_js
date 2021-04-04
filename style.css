@@ -1,0 +1,49 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    margin: 200px auto 0 auto;
+}
+
+#scoreBoard {
+    display: flex;
+    justify-content: space-between;
+}
+
+.player-score {
+    width: 50%;
+}
+
+#gameContainer {
+    position: relative;
+    margin: 10px auto 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    height: 50%;
+}
+
+.gameboard-tile {
+    min-width: 33.333%;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    float: left;
+    background-color: green;
+    min-height: 20px;
+    color: white;
+    border: 1px solid black;
+}
+
+button {
+    width: 10%;
+    margin: 0 auto;
+}
+
+#formContainer {
+    display: none;
+    width: 50%;
+    margin: 0 auto;
+}

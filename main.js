@@ -8,16 +8,16 @@ const Player = (name, symbol) => {
 };
 
 const Gameboard = (() => {
-    let space1 = document.getElementById("cell1")
-    let space2 = document.getElementById("cell2")
-    let space3 = document.getElementById("cell3")
-    let space4 = document.getElementById("cell4")
-    let space5 = document.getElementById("cell5")
-    let space6 = document.getElementById("cell6")
-    let space7 = document.getElementById("cell7")
-    let space8 = document.getElementById("cell8")
-    let space9 = document.getElementById("cell9")
-    let gameboard = [space1, space2, space3, space4, space5, space6, space7, space8, space9];
+    const space1 = document.getElementById("cell1")
+    const space2 = document.getElementById("cell2")
+    const space3 = document.getElementById("cell3")
+    const space4 = document.getElementById("cell4")
+    const space5 = document.getElementById("cell5")
+    const space6 = document.getElementById("cell6")
+    const space7 = document.getElementById("cell7")
+    const space8 = document.getElementById("cell8")
+    const space9 = document.getElementById("cell9")
+    const gameboard = [space1, space2, space3, space4, space5, space6, space7, space8, space9];
 
     const winningConditions = [
         [1, 2, 3],
@@ -36,12 +36,12 @@ const Gameboard = (() => {
 const Game = (() => {
     let player1 = Player('Player 1', 'X', 0);
     let player2 = Player('Player 2', 'O', 0);
-    let turn = 1;
-    let end = false;
+    var turn = 1;
+    var end = false;
 
     const reset = (e) => {
         turn = 1;  
-        for (var i = 1; i < (Gameboard.gameboard.length + 1); i++) {
+        for (let i = 1; i < (Gameboard.gameboard.length + 1); i++) {
             document.getElementById('cell' + i).textContent = "";
         };
         player1.currentSpaces = [];
@@ -123,7 +123,7 @@ const Game = (() => {
         };
     };
 
-    for (var i = 1; i < (Gameboard.gameboard.length + 1); i++) {
+    for (let i = 1; i < (Gameboard.gameboard.length + 1); i++) {
         document.getElementById('cell' + i).addEventListener('click', takeTurn);
     };
 
@@ -135,9 +135,9 @@ const Game = (() => {
 
 
 FormView = (() => {
-    let btnShowForm = document.getElementById('btnShowForm');
-    let btnCloseForm = document.getElementById('btnCloseForm');
-    let form = document.getElementById('formContainer');
+    const btnShowForm = document.getElementById('btnShowForm');
+    const btnCloseForm = document.getElementById('btnCloseForm');
+    const form = document.getElementById('formContainer');
 
     function showForm() {
         form.style.display = 'block';

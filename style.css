@@ -2,7 +2,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 50%;
+    width: 400px;
     margin: 200px auto 0 auto;
 }
 
@@ -17,7 +17,7 @@ main {
 
 #gameContainer {
     position: relative;
-    margin: 10px auto 50px auto;
+    margin: 10px auto 30px auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -38,12 +38,13 @@ main {
 }
 
 button {
-    width: 10%;
-    margin: 0 auto;
+    width: 50%;
+    margin: 10px auto;
 }
 
 #formContainer {
     display: none;
-    width: 50%;
+    min-width: 400px;
+    width: 40%;
     margin: 0 auto;
 }

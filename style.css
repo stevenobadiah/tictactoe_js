@@ -8,6 +8,11 @@ main {
 
 #scoreBoard {
     display: flex;
+    flex-direction: column;
+}
+
+#scoreBoardTypes, #scoreBoardScores {
+    display: flex;
     justify-content: space-between;
 }
 

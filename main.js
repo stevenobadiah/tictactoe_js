@@ -53,8 +53,10 @@ const Game = (() => {
     function adjustScoreboard(player) {
         if (player == player1) {
             document.getElementById('player1Wins').innerHTML = player.name + " Wins: " + player.victoryCount;
+            document.getElementById('player1Type').innerHTML = player.playerType;
         } else {
             document.getElementById('player2Wins').innerHTML = player.name + " Wins: " + player.victoryCount;
+            document.getElementById('player2Type').innerHTML = player.playerType;
         };
     }; 
 
@@ -109,24 +111,6 @@ const Game = (() => {
         };
 
         executeTurn(space, player);
-
-        //function humanTurn(space, player) {
-        //    //This if probably isn't necessary
-        //    if (player.playerType == 'Human' && end == false && space.textContent !== player1.symbol && space.textContent !== player2.symbol) {
-        //        executeTurn(space, player)
-         //   };
-       // };
-
-        //function computerTurn(space) {
-        //    if (player.playerType == 'Computer') {
-        //        player = whoseTurn(turn);
-        //        do {
-        //           var randomMove = Gameboard.gameboard[Math.floor(Math.random() * Gameboard.gameboard.length)];
-        //        } while (end == true || randomMove.textContent == player1.symbol || randomMove.textContent == player2.symbol)
-        //        executeTurn(randomMove, player);
-        //    };
-        //};
-        //computerTurn(space, player);
     };
 
     const humanTurn = (e) => {
@@ -205,19 +189,6 @@ const Game = (() => {
     for (let i = 1; i < (Gameboard.gameboard.length + 1); i++) {
         document.getElementById('cell' + i).addEventListener('click', humanTurn);
     };
-
-    
-
-    //do {
-     //   var randomMove = Gameboard.gameboard[Math.floor(Math.random() * Gameboard.gameboard.length)];
-    //} while (end == true || randomMove.textContent == player1.symbol || randomMove.textContent == player2.symbol)
-
-    //if (player.playerType == "Compuer") {
-
-    //};
-        
-
-    //return { player1, player2, takeTurn, reset, adjustScoreboard }
 })();
 
 

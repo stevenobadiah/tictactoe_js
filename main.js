@@ -3,8 +3,9 @@ const Player = (name, symbol) => {
     const getSymbol = () => symbol;
     let victoryCount = 0;
     let currentSpaces = [];
+    let playerType = 'Human'
 
-    return { name, symbol, victoryCount, currentSpaces };
+    return { name, symbol, victoryCount, currentSpaces, playerType };
 };
 
 const Gameboard = (() => {
@@ -18,6 +19,7 @@ const Gameboard = (() => {
     const space8 = document.getElementById("cell8")
     const space9 = document.getElementById("cell9")
     const gameboard = [space1, space2, space3, space4, space5, space6, space7, space8, space9];
+    const gameboardNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     const winningConditions = [
         [1, 2, 3],
@@ -30,24 +32,15 @@ const Gameboard = (() => {
         [3, 5, 7],
     ]
 
-    return { gameboard, winningConditions }
+    return { gameboard, gameboardNumbers, winningConditions }
 })();
 
 const Game = (() => {
-    let player1 = Player('Player 1', 'X', 0);
-    let player2 = Player('Player 2', 'O', 0);
+    let player1 = Player('Player 1', 'X');
+    let player2 = Player('Player 2', 'O');
+    let players = [player1, player2]
     var turn = 1;
     var end = false;
-
-    const reset = (e) => {
-        turn = 1;  
-        for (let i = 1; i < (Gameboard.gameboard.length + 1); i++) {
-            document.getElementById('cell' + i).textContent = "";
-        };
-        player1.currentSpaces = [];
-        player2.currentSpaces = [];
-        end = false;
-    };
 
     function whoseTurn(turn) {
         if (turn % 2 !== 0) {
@@ -65,23 +58,17 @@ const Game = (() => {
         };
     }; 
 
-    const updatePlayers = (e)=> {
-        e.preventDefault();
-
-        player1.name = document.getElementById('player1Name').value;
-        player1.symbol = document.getElementById('player1Symbol').value;
-        player2.name = document.getElementById('player2Name').value;
-        player2.symbol = document.getElementById('player2Symbol').value;
-
-        document.getElementById('formContainer').style.display = 'none';
-        adjustScoreboard(player1);
-        adjustScoreboard(player2);
-        reset();
+    function checkIfComputerTurn(turn) {   
+        player = whoseTurn(turn);
+        if (player.playerType == "Computer") {
+            return true;
+        } else {
+            return false;
+        };
     };
 
-    const takeTurn = (e) => {
-        let space = e.currentTarget;
-        let player = whoseTurn(turn)
+    function takeTurn(turn, space){
+        var player = whoseTurn(turn);
 
         function endGame(player) {
             end = true;
@@ -108,8 +95,7 @@ const Game = (() => {
             };
         };
 
-
-        if (end == false && space.textContent !== player1.symbol && space.textContent !== player2.symbol) {
+        function executeTurn(space, player) {
             space.textContent = player.symbol;
             player.currentSpaces.push(Number(space.id.slice(-1)));
 
@@ -121,16 +107,117 @@ const Game = (() => {
                 turn += 1;
             };
         };
+
+        executeTurn(space, player);
+
+        //function humanTurn(space, player) {
+        //    //This if probably isn't necessary
+        //    if (player.playerType == 'Human' && end == false && space.textContent !== player1.symbol && space.textContent !== player2.symbol) {
+        //        executeTurn(space, player)
+         //   };
+       // };
+
+        //function computerTurn(space) {
+        //    if (player.playerType == 'Computer') {
+        //        player = whoseTurn(turn);
+        //        do {
+        //           var randomMove = Gameboard.gameboard[Math.floor(Math.random() * Gameboard.gameboard.length)];
+        //        } while (end == true || randomMove.textContent == player1.symbol || randomMove.textContent == player2.symbol)
+        //        executeTurn(randomMove, player);
+        //    };
+        //};
+        //computerTurn(space, player);
     };
 
-    for (let i = 1; i < (Gameboard.gameboard.length + 1); i++) {
-        document.getElementById('cell' + i).addEventListener('click', takeTurn);
+    const humanTurn = (e) => {
+        let space = e.currentTarget;
+
+        takeTurn(turn, space);
+        turn += 1;
+        if (checkIfComputerTurn(turn) && end == false) {
+            do {
+                var randomMove = Gameboard.gameboard[Math.floor(Math.random() * Gameboard.gameboard.length)];
+            } while (end == true || randomMove.textContent == player1.symbol || randomMove.textContent == player2.symbol)
+            takeTurn(turn, randomMove);
+            turn += 1;
+        };
+    };
+    
+    const reset = (e) => {
+        turn = 1;  
+        for (let i = 1; i < (Gameboard.gameboard.length + 1); i++) {
+            document.getElementById('cell' + i).textContent = "";
+        };
+        player1.currentSpaces = [];
+        player2.currentSpaces = [];
+        end = false;
+
+        //Computer Loop
+        while (checkIfComputerTurn(turn) && end == false) {
+            do { 
+                var randomMove = Gameboard.gameboard[Math.floor(Math.random() * Gameboard.gameboard.length)];
+            } while (end == true || randomMove.textContent == player1.symbol || randomMove.textContent == player2.symbol);
+            takeTurn(turn, randomMove);
+            turn += 1;
+        };
+    };
+
+    const resetScoreboard = (e) => {
+        reset();
+        player1.victoryCount = 0;
+        adjustScoreboard(player1);
+        player2.victoryCount = 0;
+        adjustScoreboard(player2);
+    };
+
+    const updatePlayers = (e)=> {
+        e.preventDefault();
+
+        var player1Types = document.getElementsByName('player1Types');
+        var player2Types = document.getElementsByName('player2Types');
+
+        for (i=0; i < player1Types.length; i++) {
+            if (player1Types[i].checked) {
+                player1.playerType = player1Types[i].value;
+            };
+        }
+
+        for (i=0; i < player2Types.length; i++) {
+            if (player2Types[i].checked) {
+                player2.playerType = player2Types[i].value;
+            };
+        }
+
+        player1.name = document.getElementById('player1Name').value;
+        player1.symbol = document.getElementById('player1Symbol').value;
+        player2.name = document.getElementById('player2Name').value;
+        player2.symbol = document.getElementById('player2Symbol').value;
+
+        document.getElementById('formContainer').style.display = 'none';
+        adjustScoreboard(player1);
+        adjustScoreboard(player2);
+        reset();
     };
 
     document.getElementById('btnSubmitUpdates').addEventListener('click', updatePlayers);
     document.getElementById('btnReset').addEventListener('click', reset);
+    document.getElementById('btnResetScoreboard').addEventListener('click', resetScoreboard);
+    for (let i = 1; i < (Gameboard.gameboard.length + 1); i++) {
+        document.getElementById('cell' + i).addEventListener('click', humanTurn);
+    };
 
-    return { player1, player2, takeTurn, reset, adjustScoreboard }
+    
+
+    //do {
+     //   var randomMove = Gameboard.gameboard[Math.floor(Math.random() * Gameboard.gameboard.length)];
+    //} while (end == true || randomMove.textContent == player1.symbol || randomMove.textContent == player2.symbol)
+
+    //if (player.playerType == "Compuer") {
+
+    //};
+        
+
+    //return { player1, player2, takeTurn, reset, adjustScoreboard }
 })();
 
 

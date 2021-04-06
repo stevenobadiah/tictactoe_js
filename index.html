@@ -28,24 +28,42 @@
             <div class="gameboard-tile" id="cell9"></div>
         </div>
         <button id="btnShowForm">Update Players Info</button>
-        <button id="btnReset">Reset</button>
+        <button id="btnReset">New Game</button>
+        <button id="btnResetScoreboard">Reset Scoreboard</button>
     </main>
 
     <div id="formContainer">
         <form id="myForm" class="d-flex flex-column">
             <h1>Update Players Info</h1>
 
-            <label for="player1Name">Player 1 Name</label>
-            <input type="text" id="player1Name" value='Player 1' name="player1Name">
+            <div id="player1Options">
+                <label for="player1Name">Player 1 Name</label>
+                <input type="text" id="player1Name" value='Player 1' name="player1Name">
 
-            <label for="player1Symbol">Player 1 Symbol</label>
-            <input type="text" id="player1Symbol" value='X' name="player1Symbol">
+                <label for="player1Symbol">Player 1 Symbol</label>
+                <input type="text" id="player1Symbol" value='X' name="player1Symbol">
 
-            <label for="player2Name">Player 2 Name</label>
-            <input type="text" id="player2Name" value='Player 2' name="player2Name">
+                <div>
+                    <input type="radio" id="player1Human" name="player1Types" value="Human" checked>
+                    <label for="human">Human</label>
+                    <input type="radio" id="player1Computer" name="player1Types" value="Computer">
+                    <label for="computer">Computer</label>
+                </div>
+            </div>
+            <div id="player2Options">
+                <label for="player2Name">Player 2 Name</label>
+                <input type="text" id="player2Name" value='Player 2' name="player2Name">
 
-            <label for="player2Symbol">Player 2 Symbol</label>
-            <input type="text" id="player2Symbol" value='O' name="player2Symbol">
+                <label for="player2Symbol">Player 2 Symbol</label>
+                <input type="text" id="player2Symbol" value='O' name="player2Symbol">
+
+                <div>
+                    <input type="radio" id="player2Human" name="player2Types" value="Human" checked>
+                    <label for="human">Human</label>
+                    <input type="radio" id="player2Computer" name="player2Types" value="Computer">
+                    <label for="computer">Computer</label>
+                </div>
+            </div>
 
             <button type="submit" id="btnSubmitUpdates">Submit Updates</button>
             <button type="reset" id="btnCloseForm">Cancel</button>
